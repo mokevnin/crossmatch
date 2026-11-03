@@ -1,0 +1,36 @@
+version: "2"
+
+formatters:
+  enable:
+    - gofmt
+
+linters:
+  default: standard
+  enable:
+    - bodyclose
+    - contextcheck
+    - copyloopvar
+    - errname
+    - errorlint
+    - exhaustive
+    - forcetypeassert
+    - gocritic
+    - godot
+    - modernize
+    - nolintlint
+    - noctx
+    - revive
+    - rowserrcheck
+    - sloglint
+    - sqlclosecheck
+    - thelper
+    - unparam
+    - usetesting
+    - whitespace
+  settings:
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+  exclusions:
+    # sqlc writes internal/store; it is regenerated, never edited by hand.
+    generated: strict

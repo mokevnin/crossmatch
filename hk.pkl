@@ -1,0 +1,29 @@
+amends "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtins.pkl"
+
+// A commit hook runs only what is fast on the staged files. Whole-project checks run on push, and
+// `check` (and so CI) runs everything. A check that exists only in a hook is not enforced.
+local fast = new Mapping<String, Step> {
+    ["golangci_lint"] = Builtins.golangci_lint
+}
+
+local all = (fast) {
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = true
+        stash = "git"
+        steps = fast
+    }
+    ["pre-push"] {
+        steps = all
+    }
+    ["check"] {
+        steps = all
+    }
+    ["fix"] {
+        fix = true
+        steps = all
+    }
+}

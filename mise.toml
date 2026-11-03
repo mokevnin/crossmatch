@@ -1,0 +1,32 @@
+# One toolchain for developers, git hooks and CI: `mise install`, then `mise run check`.
+# hk's version must match the package:// import at the top of hk.pkl: bump both together.
+[tools]
+go = "1.27.3"
+golangci-lint = "2.15.0"
+hk = "2.11.0"
+pkl = "0.32.2"
+"aqua:sqlc-dev/sqlc" = "1.31.1"
+"go:github.com/pressly/goose/v3/cmd/goose" = "3.29.0"
+
+[hooks]
+postinstall = "hk install --mise"
+
+[tasks.setup]
+description = "Install the git hooks"
+run = "hk install --mise"
+
+[tasks.check]
+description = "Run every check, the same set CI runs"
+run = "hk check --all"
+
+[tasks.fix]
+description = "Apply the automatic fixes"
+run = "hk fix --all"
+
+[tasks.generate]
+description = "Regenerate the code sqlc writes from migrations and queries"
+run = "sqlc generate"
+
+[tasks.test]
+description = "Run the Go tests"
+run = "go test ./..."
