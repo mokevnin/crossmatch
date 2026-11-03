@@ -21,8 +21,8 @@ type CreateChannelParams struct {
 	Username    string
 	Topic       string
 	Language    string
-	Subscribers int32
-	AvgReach    int32
+	Subscribers int64
+	AvgReach    int64
 }
 
 func (q *Queries) CreateChannel(ctx context.Context, arg CreateChannelParams) (Channel, error) {
@@ -70,13 +70,14 @@ func (q *Queries) GetChannel(ctx context.Context, id int64) (Channel, error) {
 }
 
 const isMutual = `-- name: IsMutual :one
-SELECT EXISTS (
+SELECT exists(
     SELECT 1
     FROM decisions AS a
     JOIN decisions AS b
-      ON b.from_channel_id = a.to_channel_id AND b.to_channel_id = a.from_channel_id
-    WHERE a.from_channel_id = $1 AND a.to_channel_id = $2
-      AND a.interested AND b.interested
+        ON b.from_channel_id = a.to_channel_id AND b.to_channel_id = a.from_channel_id
+    WHERE
+        a.from_channel_id = $1 AND a.to_channel_id = $2
+        AND a.interested AND b.interested
 )
 `
 
@@ -95,16 +96,17 @@ func (q *Queries) IsMutual(ctx context.Context, arg IsMutualParams) (bool, error
 const listCandidates = `-- name: ListCandidates :many
 SELECT c.id, c.owner_id, c.username, c.topic, c.language, c.subscribers, c.avg_reach, c.created_at
 FROM channels AS c
-WHERE c.id <> $1::bigint
-  AND c.topic = $2::text
-  AND c.language = $3::text
-  AND c.avg_reach::float8 BETWEEN $4::float8 / $5::float8
-                              AND $4::float8 * $5::float8
-  AND NOT EXISTS (
-      SELECT 1 FROM decisions AS d
-      WHERE d.from_channel_id = $1::bigint AND d.to_channel_id = c.id
-  )
-ORDER BY abs(c.avg_reach - $4::int)
+WHERE
+    c.id <> $1::bigint
+    AND c.topic = $2::text
+    AND c.language = $3::text
+    AND c.avg_reach::float8 BETWEEN $4::float8 / $5::float8
+    AND $4::float8 * $5::float8
+    AND NOT EXISTS (
+        SELECT 1 FROM decisions AS d
+        WHERE d.from_channel_id = $1::bigint AND d.to_channel_id = c.id
+    )
+ORDER BY abs(c.avg_reach - $4::bigint)
 LIMIT $6::int
 `
 
@@ -159,7 +161,7 @@ const recordDecision = `-- name: RecordDecision :exec
 INSERT INTO decisions (from_channel_id, to_channel_id, interested)
 VALUES ($1, $2, $3)
 ON CONFLICT (from_channel_id, to_channel_id)
-DO UPDATE SET interested = EXCLUDED.interested, decided_at = now()
+DO UPDATE SET interested = excluded.interested, decided_at = now()
 `
 
 type RecordDecisionParams struct {

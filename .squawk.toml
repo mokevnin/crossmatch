@@ -1,0 +1,7 @@
+# Migration safety gate: https://github.com/sbdchd/squawk
+pg_version = "17.0"
+# goose runs each migration in one transaction.
+assume_in_transaction = true
+# A goose migration is recorded once it succeeds and rolls back whole when it fails, so a
+# half-applied migration cannot be rerun and IF [NOT] EXISTS buys nothing.
+excluded_rules = ["prefer-robust-stmts"]

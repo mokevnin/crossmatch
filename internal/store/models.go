@@ -14,8 +14,8 @@ type Channel struct {
 	Username    string
 	Topic       string
 	Language    string
-	Subscribers int32
-	AvgReach    int32
+	Subscribers int64
+	AvgReach    int64
 	CreatedAt   pgtype.Timestamptz
 }
 

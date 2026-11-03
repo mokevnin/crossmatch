@@ -1,0 +1,4 @@
+# SQL style gate: https://github.com/quarylabs/sqruff
+[sqruff]
+dialect = postgres
+max_line_length = 100

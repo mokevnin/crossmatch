@@ -5,6 +5,22 @@ import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtin
 // `check` (and so CI) runs everything. A check that exists only in a hook is not enforced.
 local fast = new Mapping<String, Step> {
     ["golangci_lint"] = Builtins.golangci_lint
+    ["sqruff"] {
+        glob = List("**/*.sql")
+        check = "sqruff lint {{files}}"
+        fix = "sqruff fix {{files}}"
+    }
+    ["squawk"] {
+        glob = List("migrations/*.sql", ".squawk.toml")
+        check = "squawk -c .squawk.toml migrations/*.sql"
+    }
+    // The Go code in internal/store is what sqlc writes from the migrations and queries.
+    ["sqlc"] {
+        glob = List("migrations/*.sql", "queries/*.sql", "sqlc.yaml")
+        check = "sqlc diff"
+        fix = "sqlc generate"
+        exclusive = true
+    }
 }
 
 local all = (fast) {
