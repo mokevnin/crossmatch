@@ -1,6 +1,7 @@
 # One toolchain for developers, git hooks and CI: `mise install`, then `mise run check`.
 # hk's version must match the package:// import at the top of hk.pkl: bump both together.
 [tools]
+"github:agent-sh/agnix" = "0.60.3"
 "aqua:google/osv-scanner" = "2.7.0"
 jactionlint = "2.4.0"
 "aqua:hadolint/hadolint" = "2.15.1"

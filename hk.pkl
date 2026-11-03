@@ -12,6 +12,10 @@ local fast = new Mapping<String, Step> {
     ["rumdl"] = Builtins.rumdl
     ["typos"] = Builtins.typos
     ["jactionlint"] = Builtins.jactionlint
+    ["agnix"] {
+        glob = List("AGENTS.md", "CLAUDE.md", ".claude/**")
+        check = "agnix --strict validate {{files}}"
+    }
     ["hadolint"] {
         glob = List("Dockerfile*")
         check = "hadolint {{files}}"
