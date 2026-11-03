@@ -27,7 +27,6 @@ exclude:
   - easement.yml
   - lychee.toml
   - osv-scanner.toml
-  - renovate.json
   - _typos.toml
   - .golangci.yml
   - .rumdl.toml
