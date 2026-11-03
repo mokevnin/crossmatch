@@ -44,7 +44,7 @@ run = "hk install --mise"
 
 [tasks.check]
 description = "Run every check, the same set CI runs"
-run = ["hk check --all", "go test ./..."]
+run = ["hk check --all", "go test -race ./..."]
 
 [tasks."check:vulnerabilities"]
 description = "Known vulnerabilities in every lockfile (the network; run by the nightly workflow)"
@@ -68,5 +68,5 @@ secrets = ["BOT_TOKEN"]
 run = "go run ./cmd/crossmatch"
 
 [tasks.test]
-description = "Run the Go tests"
-run = "go test ./..."
+description = "Run the Go tests with the race detector"
+run = "go test -race ./..."
