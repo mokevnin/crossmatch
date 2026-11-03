@@ -5,6 +5,12 @@ version: 1
 components:
   # The program: wires the packages together and talks to Telegram and the database.
   cmd: { in: cmd/crossmatch }
+  # The Telegram side: receives updates and answers them.
+  bot: { in: internal/bot }
+  # The settings read from the environment.
+  config: { in: internal/config }
+  # The schema migrations and the code that applies them.
+  migrations: { in: migrations }
   # The matching rules: pure functions over plain values.
   matching: { in: internal/matching }
   # The code sqlc writes from migrations/ and queries/.
@@ -18,8 +24,17 @@ target_only: ['internal/store/**']
 
 rules:
   cmd:
-    may_depend_on: [matching, store]
+    may_depend_on: [bot, config, migrations, matching, store]
     because: cmd is where the program is assembled
+  bot:
+    may_depend_on: [matching, store]
+    because: the bot calls the matching rules and the store, and nothing calls the bot but cmd
+  config:
+    may_depend_on: []
+    because: config reads the environment and imports nothing of ours
+  migrations:
+    may_depend_on: []
+    because: the migrations are SQL plus the code that applies them, independent of the rest of the program
   matching:
     may_depend_on: []
     forbid_external:
