@@ -1,0 +1,32 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: jdx/mise-action@8418fedb1110381a0d3ba51a7a415d7c1b884550 # v5.2.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Vulnerability databases change without a commit, so this runs on a schedule too.
+      - name: Vulnerabilities
+        run: mise run check:vulnerabilities
+
+      # Links to other sites break without a commit as well.
+      - name: Links
+        run: mise run check:links
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

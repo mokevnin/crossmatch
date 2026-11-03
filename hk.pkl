@@ -11,6 +11,7 @@ local fast = new Mapping<String, Step> {
     ["golangci_lint"] = Builtins.golangci_lint
     ["rumdl"] = Builtins.rumdl
     ["typos"] = Builtins.typos
+    ["jactionlint"] = Builtins.jactionlint
     ["hadolint"] {
         glob = List("Dockerfile*")
         check = "hadolint {{files}}"
