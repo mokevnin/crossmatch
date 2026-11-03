@@ -2,3 +2,34 @@ theme: jekyll-theme-minimal
 title: CrossMatch
 description: Telegram-бот, который подбирает каналы для взаимного пиара
 lang: ru
+
+# The site is README.md alone. Everything else in the repository stays off the public page.
+exclude:
+  - AGENTS.md
+  - CLAUDE.md
+  - DEVELOPMENT.md
+  - CHANGELOG.md
+  - cmd
+  - internal
+  - migrations
+  - queries
+  - .github
+  - .env.example
+  - "*.go"
+  - go.mod
+  - go.sum
+  - sqlc.yaml
+  - mise.toml
+  - mise.lock
+  - hk.pkl
+  - Dockerfile
+  - compose.yaml
+  - easement.yml
+  - lychee.toml
+  - osv-scanner.toml
+  - renovate.json
+  - _typos.toml
+  - .golangci.yml
+  - .rumdl.toml
+  - .betterleaks.toml
+  - .sqruff
