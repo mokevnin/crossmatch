@@ -1,0 +1,4 @@
+theme: jekyll-theme-minimal
+title: CrossMatch
+description: Telegram-бот, который подбирает каналы для взаимного пиара
+lang: ru
