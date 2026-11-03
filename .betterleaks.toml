@@ -7,9 +7,10 @@ useDefault = true
 # leak that later lands in the same file.
 
 [[allowlists]]
-description = "The throwaway Postgres user and password of the local development database, bound to 127.0.0.1"
+description = "The throwaway Postgres user and password of the local development database, bound to 127.0.0.1 (.env.example is gone but stays in the history)"
 targetRules = ["generic-password", "generic-credential-uri"]
 paths = [
   '''^compose\.yaml$''',
   '''^mise\.toml$''',
+  '''^\.env\.example$''',
 ]
