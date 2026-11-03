@@ -1,0 +1,17 @@
+# Link checks over the Markdown of the repository. `mise run check` runs them offline (relative
+# links and fragments); the scheduled workflow checks the network too.
+include_fragments = "full"
+max_concurrency = 8
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+cache = true
+max_cache_age = "1d"
+# 429 is a rate limit, not a broken link; GITHUB_TOKEN (read from the environment) keeps
+# github.com links clear of it.
+accept = ["200..=204", "429"]
+accept_timeouts = true
+exclude_path = ["(^|/)CHANGELOG\\.md$"]
+# t.me answers a script with a page that looks the same for any handle, and the bot's own link
+# is only valid once the handle is claimed in BotFather.
+exclude = ["^https://t\\.me/"]

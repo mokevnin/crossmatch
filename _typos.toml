@@ -1,0 +1,3 @@
+[files]
+# Generated code and lockfiles.
+extend-exclude = ["internal/store", "go.sum"]

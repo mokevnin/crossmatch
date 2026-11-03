@@ -9,6 +9,16 @@ local fast = new Mapping<String, Step> {
         exclusive = true
     }
     ["golangci_lint"] = Builtins.golangci_lint
+    ["rumdl"] = Builtins.rumdl
+    ["typos"] = Builtins.typos
+    ["hadolint"] {
+        glob = List("Dockerfile*")
+        check = "hadolint {{files}}"
+    }
+    ["lychee"] {
+        glob = List("**/*.md", "lychee.toml")
+        check = "lychee --config lychee.toml --offline --no-progress {{files}}"
+    }
     ["sqruff"] {
         glob = List("**/*.sql")
         check = "sqruff lint {{files}}"
