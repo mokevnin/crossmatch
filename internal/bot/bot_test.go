@@ -12,6 +12,7 @@ import (
 	"github.com/go-telegram/bot/models"
 
 	"github.com/mokevnin/crossmatch/internal/bot"
+	"github.com/mokevnin/crossmatch/internal/i18n"
 )
 
 type sentMessage struct {
@@ -37,12 +38,22 @@ func fakeTelegram(t *testing.T) (url string, sent <-chan sentMessage) {
 	return srv.URL, messages
 }
 
-func TestStartAnswersInTheSameChat(t *testing.T) {
-	url, sent := fakeTelegram(t)
-	b, err := bot.New("test-token", tgbot.WithServerURL(url), tgbot.WithSkipGetMe())
+func newBot(t *testing.T, serverURL string) *bot.Bot {
+	t.Helper()
+	texts, err := i18n.New()
+	if err != nil {
+		t.Fatalf("i18n.New: %v", err)
+	}
+	b, err := bot.New("test-token", texts, tgbot.WithServerURL(serverURL), tgbot.WithSkipGetMe())
 	if err != nil {
 		t.Fatalf("New: %v", err)
 	}
+	return b
+}
+
+func TestStartAnswersInTheSameChat(t *testing.T) {
+	url, sent := fakeTelegram(t)
+	b := newBot(t, url)
 
 	b.Process(context.Background(), &models.Update{
 		Message: &models.Message{Text: "/start", Chat: models.Chat{ID: 42}},
@@ -53,8 +64,30 @@ func TestStartAnswersInTheSameChat(t *testing.T) {
 		if m.ChatID != "42" {
 			t.Errorf("answered chat %v, want 42", m.ChatID)
 		}
-		if !strings.Contains(m.Text, "CrossMatch") {
-			t.Errorf("answer %q does not introduce the bot", m.Text)
+		if !strings.Contains(m.Text, "Я CrossMatch") {
+			t.Errorf("answer %q is not the Russian introduction", m.Text)
+		}
+	case <-time.After(5 * time.Second):
+		t.Fatal("no answer to /start")
+	}
+}
+
+func TestStartAnswersInTheSendersLanguage(t *testing.T) {
+	url, sent := fakeTelegram(t)
+	b := newBot(t, url)
+
+	b.Process(context.Background(), &models.Update{
+		Message: &models.Message{
+			Text: "/start",
+			Chat: models.Chat{ID: 42},
+			From: &models.User{ID: 7, LanguageCode: "en"},
+		},
+	})
+
+	select {
+	case m := <-sent:
+		if !strings.Contains(m.Text, "I'm CrossMatch") {
+			t.Errorf("answer %q is not the English introduction", m.Text)
 		}
 	case <-time.After(5 * time.Second):
 		t.Fatal("no answer to /start")
@@ -63,10 +96,7 @@ func TestStartAnswersInTheSameChat(t *testing.T) {
 
 func TestOtherTextIsNotAnswered(t *testing.T) {
 	url, sent := fakeTelegram(t)
-	b, err := bot.New("test-token", tgbot.WithServerURL(url), tgbot.WithSkipGetMe())
-	if err != nil {
-		t.Fatalf("New: %v", err)
-	}
+	b := newBot(t, url)
 
 	b.Process(context.Background(), &models.Update{
 		Message: &models.Message{Text: "hello", Chat: models.Chat{ID: 42}},

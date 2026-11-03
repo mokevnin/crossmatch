@@ -15,7 +15,8 @@ CrossMatch is a Telegram bot that matches channel admins for mutual promotion. I
 
 Each rule is backed by a check in `mise run check`.
 
-- Never edit `internal/store` by hand. Change the SQL in `migrations/` or `queries/` and run `mise run generate` (`sqlc diff` fails on a stale copy).
+- Every text a user sees lives in `internal/i18n/locales/`, never in Go code. Add the message to `ru.json` (the source of truth and the fallback), then to every other catalog with the same placeholders, and run `mise run generate`. Reach it through its generated `i18n.ID` and the sender's localizer (`go test` fails when a catalog disagrees with the Russian one, and a stale `ids_gen.go` fails `check`).
+- Never edit `internal/store` or `internal/i18n/ids_gen.go` by hand. Change the SQL in `migrations/` or `queries/` and run `mise run generate` (`sqlc diff` fails on a stale copy).
 - A migration must pass squawk. On a table that already holds rows, create indexes with `CREATE INDEX CONCURRENTLY` in a migration marked `-- +goose NO TRANSACTION`.
 - Package boundaries live in `easement.yml`. A violation prints the rule's reason: read it before adding a baseline entry.
 - Do not disable a lint rule or a hook to get a change through. An exception is narrow (one path and one rule), carries a reason, and needs a human decision.

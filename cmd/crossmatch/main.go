@@ -13,6 +13,7 @@ import (
 
 	"github.com/mokevnin/crossmatch/internal/bot"
 	"github.com/mokevnin/crossmatch/internal/config"
+	"github.com/mokevnin/crossmatch/internal/i18n"
 	"github.com/mokevnin/crossmatch/migrations"
 )
 
@@ -48,7 +49,11 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	b, err := bot.New(cfg.BotToken)
+	texts, err := i18n.New()
+	if err != nil {
+		return err
+	}
+	b, err := bot.New(cfg.BotToken, texts)
 	if err != nil {
 		return err
 	}

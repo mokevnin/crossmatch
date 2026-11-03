@@ -59,8 +59,8 @@ description = "Apply the automatic fixes"
 run = "hk fix --all"
 
 [tasks.generate]
-description = "Regenerate the code sqlc writes from migrations and queries"
-run = "sqlc generate"
+description = "Regenerate internal/store (sqlc, from migrations and queries) and the message ids (from the Russian catalog)"
+run = ["sqlc generate", "go run ./cmd/i18ngen"]
 
 [tasks.run]
 description = "Run the bot against the local database; the Telegram credential comes from fnox"

@@ -9,6 +9,10 @@ components:
   bot: { in: internal/bot }
   # The settings read from the environment.
   config: { in: internal/config }
+  # Every text shown to a user, per language.
+  i18n: { in: internal/i18n }
+  # The generator of internal/i18n/ids_gen.go.
+  i18ngen: { in: cmd/i18ngen }
   # The schema migrations and the code that applies them.
   migrations: { in: migrations }
   # The matching rules: pure functions over plain values.
@@ -24,11 +28,17 @@ target_only: ['internal/store/**']
 
 rules:
   cmd:
-    may_depend_on: [bot, config, migrations, matching, store]
+    may_depend_on: [bot, config, i18n, migrations, matching, store]
     because: cmd is where the program is assembled
   bot:
-    may_depend_on: [matching, store]
+    may_depend_on: [i18n, matching, store]
     because: the bot calls the matching rules and the store, and nothing calls the bot but cmd
+  i18n:
+    may_depend_on: []
+    because: the texts are data plus a loader and import nothing of ours
+  i18ngen:
+    may_depend_on: []
+    because: the generator reads a catalog file and writes a source file, and imports nothing of ours
   config:
     may_depend_on: []
     because: config reads the environment and imports nothing of ours

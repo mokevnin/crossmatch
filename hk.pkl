@@ -35,6 +35,13 @@ local fast = new Mapping<String, Step> {
         check = "easement check"
         exclusive = true
     }
+    // internal/i18n/ids_gen.go is what cmd/i18ngen writes from the Russian catalog.
+    ["i18n"] {
+        glob = List("internal/i18n/locales/*.json", "internal/i18n/ids_gen.go", "cmd/i18ngen/*.go")
+        check = "go run ./cmd/i18ngen -check"
+        fix = "go run ./cmd/i18ngen"
+        exclusive = true
+    }
     ["squawk"] {
         glob = List("migrations/*.sql", ".squawk.toml")
         check = "squawk -c .squawk.toml migrations/*.sql"
