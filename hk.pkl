@@ -10,6 +10,11 @@ local fast = new Mapping<String, Step> {
         check = "sqruff lint {{files}}"
         fix = "sqruff fix {{files}}"
     }
+    ["easement"] {
+        glob = List("**/*.go", "easement.yml", "go.mod")
+        check = "easement check"
+        exclusive = true
+    }
     ["squawk"] {
         glob = List("migrations/*.sql", ".squawk.toml")
         check = "squawk -c .squawk.toml migrations/*.sql"

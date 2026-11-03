@@ -1,6 +1,8 @@
 # One toolchain for developers, git hooks and CI: `mise install`, then `mise run check`.
 # hk's version must match the package:// import at the top of hk.pkl: bump both together.
 [tools]
+"github:mokevnin/easement" = "0.4.7"
+"go:github.com/scip-code/scip-go/cmd/scip-go" = "0.2.9"
 "github:sbdchd/squawk" = "2.71.0"
 "github:quarylabs/sqruff" = "0.44.0"
 go = "1.27.3"
