@@ -4,6 +4,10 @@ import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtin
 // A commit hook runs only what is fast on the staged files. Whole-project checks run on push, and
 // `check` (and so CI) runs everything. A check that exists only in a hook is not enforced.
 local fast = new Mapping<String, Step> {
+    ["betterleaks"] {
+        check = "betterleaks dir --redact --no-banner ."
+        exclusive = true
+    }
     ["golangci_lint"] = Builtins.golangci_lint
     ["sqruff"] {
         glob = List("**/*.sql")
@@ -28,7 +32,19 @@ local fast = new Mapping<String, Step> {
     }
 }
 
+// Slower checks, or ones that need the network: on push and in CI, not on every commit.
 local all = (fast) {
+    // The tree is scanned in the hook; the whole history is scanned here.
+    ["betterleaks_history"] {
+        check = "betterleaks git --redact --no-banner"
+        exclusive = true
+    }
+    // Known vulnerabilities in the modules and standard library the code actually calls.
+    ["govulncheck"] {
+        glob = List("**/*.go", "go.mod", "go.sum")
+        check = "govulncheck ./..."
+        exclusive = true
+    }
 }
 
 hooks {

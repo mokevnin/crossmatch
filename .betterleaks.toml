@@ -1,0 +1,15 @@
+title = "crossmatch betterleaks config"
+
+[extend]
+useDefault = true
+
+# Known non-secrets. Keep these narrow (path and rule): a blanket path ignore would hide a real
+# leak that later lands in the same file.
+
+[[allowlists]]
+description = "The throwaway Postgres user and password of the local development database, bound to 127.0.0.1"
+targetRules = ["generic-password", "generic-credential-uri"]
+paths = [
+  '''^compose\.yaml$''',
+  '''^\.env\.example$''',
+]

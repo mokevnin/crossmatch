@@ -1,6 +1,8 @@
 # One toolchain for developers, git hooks and CI: `mise install`, then `mise run check`.
 # hk's version must match the package:// import at the top of hk.pkl: bump both together.
 [tools]
+"aqua:betterleaks/betterleaks" = "1.9.0"
+"go:golang.org/x/vuln/cmd/govulncheck" = "1.9.0"
 "github:mokevnin/easement" = "0.4.7"
 "go:github.com/scip-code/scip-go/cmd/scip-go" = "0.2.9"
 "github:sbdchd/squawk" = "2.71.0"
