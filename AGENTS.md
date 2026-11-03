@@ -9,6 +9,8 @@ CrossMatch is a Telegram bot that matches channel admins for mutual promotion. I
 - `mise install` installs the pinned toolchain and the git hooks.
 - `mise run check` runs every check, the same set CI runs. A change is done when it passes.
 - `mise run fix` applies the automatic fixes.
+- `mise run run` starts the Postgres daemon (`mise daemons`, port 5433) if it is not running and runs the bot; `mise daemons stop postgres` stops it.
+- `mise run skills:install` restores the vendored agent skills from `skills-lock.json`; `mise run skills:check` and `mise run skills:update` find and apply upstream updates. The skills that tools ship (hk, fnox) follow `mise install` and `mise upgrade` by themselves. Never edit `.agents/skills` by hand: update it through these tasks.
 - `mise run generate` regenerates `internal/store` after a change to `migrations/` or `queries/`.
 
 ## Rules

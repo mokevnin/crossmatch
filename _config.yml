@@ -6,6 +6,8 @@ lang: ru
 # The site is README.md alone. Everything else in the repository stays off the public page.
 exclude:
   - AGENTS.md
+  - docs
+  - skills-lock.json
   - CLAUDE.md
   - DEVELOPMENT.md
   - CHANGELOG.md
@@ -23,7 +25,6 @@ exclude:
   - mise.lock
   - hk.pkl
   - Dockerfile
-  - compose.yaml
   - easement.yml
   - lychee.toml
   - osv-scanner.toml

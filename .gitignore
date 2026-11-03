@@ -6,3 +6,10 @@
 *.out
 .DS_Store
 .lycheecache
+
+# Links that mise makes into .claude/skills for the skills the tools ship (`mise skills sync`); they point
+# into the mise installs, so they are not shared. Add a tool's skills here when a new tool ships some.
+/.claude/skills/fnox
+/.claude/skills/hk-*
+/.claude/skills/pitchfork
+/.claude/skills/.mise-skills.json

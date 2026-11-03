@@ -27,12 +27,3 @@ updates:
       default-days: 7
     commit-message:
       prefix: deps
-
-  - package-ecosystem: docker-compose
-    directory: /
-    schedule:
-      interval: weekly
-    cooldown:
-      default-days: 7
-    commit-message:
-      prefix: deps

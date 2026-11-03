@@ -14,7 +14,7 @@ local fast = new Mapping<String, Step> {
     ["typos"] = Builtins.typos
     ["jactionlint"] = Builtins.jactionlint
     ["agnix"] {
-        glob = List("AGENTS.md", "CLAUDE.md", ".claude/**")
+        glob = List("AGENTS.md", "CLAUDE.md")
         check = "agnix --strict validate {{files}}"
     }
     ["hadolint"] {
@@ -23,6 +23,7 @@ local fast = new Mapping<String, Step> {
     }
     ["lychee"] {
         glob = List("**/*.md", "lychee.toml")
+        exclude = List(".agents/**", ".claude/**")
         check = "lychee --config lychee.toml --offline --no-progress {{files}}"
     }
     ["sqruff"] {

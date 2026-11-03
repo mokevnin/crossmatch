@@ -11,7 +11,7 @@ max_cache_age = "1d"
 # github.com links clear of it.
 accept = ["200..=204", "429"]
 accept_timeouts = true
-exclude_path = ["(^|/)CHANGELOG\\.md$"]
+exclude_path = ["(^|/)CHANGELOG\\.md$", "(^|/)\\.agents/", "(^|/)\\.claude/"]
 # t.me answers a script with a page that looks the same for any handle, and the bot's own link
 # is only valid once the handle is claimed in BotFather.
 exclude = ["^https://t\\.me/"]

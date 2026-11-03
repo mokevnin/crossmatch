@@ -1,5 +1,7 @@
 # Prose is not wrapped and inline HTML is allowed.
 [global]
+# The vendored agent skills and their links are third-party text.
+exclude = [".agents/**", ".claude/**"]
 disable = ["MD013", "MD033", "MD041", "MD060", "MD076"]
 
 [MD024]

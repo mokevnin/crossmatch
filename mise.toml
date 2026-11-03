@@ -10,6 +10,8 @@ experimental = true
 # hk's version must match the package:// import at the top of hk.pkl: bump both together.
 [tools]
 fnox = "1.46.0"
+node = "26.13.0"
+pitchfork = "2.33.0"
 "github:agent-sh/agnix" = "0.60.3"
 "aqua:google/osv-scanner" = "2.7.0"
 jactionlint = "2.4.0"
@@ -30,10 +32,21 @@ pkl = "0.32.2"
 "aqua:sqlc-dev/sqlc" = "1.31.1"
 "go:github.com/pressly/goose/v3/cmd/goose" = "3.29.0"
 
-[env]
-# The local development database of compose.yaml, on 5433 so that it never meets a Postgres of your own
-# on 5432. Not a secret: it is bound to 127.0.0.1.
-DATABASE_URL = "postgres://crossmatch:crossmatch@127.0.0.1:5433/crossmatch?sslmode=disable"
+# Local services, supervised by pitchfork (`mise daemons`). The postgres preset exports DATABASE_URL,
+# keeps its data between runs and listens on 5433, so that it never meets a Postgres of your own on 5432.
+[daemons.postgres]
+preset = "postgres"
+version = "18"
+port = 5433
+options.database = "crossmatch"
+
+# Agent skills that the tools ship (hk, fnox, ...) are linked into .claude/skills and follow the pinned
+# tool versions: `mise install` adds them and `mise upgrade` moves them. The vendored skills are separate:
+# see skills:install and skills:update.
+[settings.skills]
+dir = ".claude/skills"
+auto_sync = true
+prune = true
 
 [hooks]
 postinstall = "hk install --mise"
@@ -63,10 +76,25 @@ description = "Regenerate internal/store (sqlc, from migrations and queries) and
 run = ["sqlc generate", "go run ./cmd/i18ngen"]
 
 [tasks.run]
-description = "Run the bot against the local database; the Telegram credential comes from fnox"
+description = "Run the bot against the local database (started if needed); the Telegram credential comes from fnox"
+daemons = "postgres"
 secrets = ["BOT_TOKEN"]
 run = "go run ./cmd/crossmatch"
 
 [tasks.test]
 description = "Run the Go tests with the race detector"
 run = "go test -race ./..."
+
+# The vendored skills (.agents/skills, linked from .claude/skills) come from skills-lock.json, through
+# the skills CLI (https://github.com/vercel-labs/skills), pinned here.
+[tasks."skills:install"]
+description = "Restore the vendored agent skills from skills-lock.json and link the skills the tools ship"
+run = ["npx --yes skills@1.7.6 experimental_install", "mise skills sync --prune"]
+
+[tasks."skills:check"]
+description = "Report the vendored agent skills that have an update upstream"
+run = "npx --yes skills@1.7.6 check"
+
+[tasks."skills:update"]
+description = "Update the vendored agent skills (and skills-lock.json), then relink the tools' skills"
+run = ["npx --yes skills@1.7.6 update", "mise skills sync --prune"]
