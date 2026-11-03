@@ -11,5 +11,5 @@ description = "The throwaway Postgres user and password of the local development
 targetRules = ["generic-password", "generic-credential-uri"]
 paths = [
   '''^compose\.yaml$''',
-  '''^\.env\.example$''',
+  '''^mise\.toml$''',
 ]

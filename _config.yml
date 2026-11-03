@@ -14,7 +14,7 @@ exclude:
   - migrations
   - queries
   - .github
-  - .env.example
+  - fnox.toml
   - "*.go"
   - go.mod
   - go.sum

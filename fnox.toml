@@ -1,0 +1,8 @@
+# Secret references for fnox: no value lives in this file. Set the bot's Telegram credential once per
+# machine with `mise x -- fnox set BOT_TOKEN --provider keychain` (it asks for the value, hidden).
+[providers.keychain]
+type = "keychain"
+service = "crossmatch"
+
+[secrets]
+BOT_TOKEN = { provider = "keychain", value = "BOT_TOKEN" }

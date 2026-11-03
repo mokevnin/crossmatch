@@ -19,5 +19,5 @@ Each rule is backed by a check in `mise run check`.
 - A migration must pass squawk. On a table that already holds rows, create indexes with `CREATE INDEX CONCURRENTLY` in a migration marked `-- +goose NO TRANSACTION`.
 - Package boundaries live in `easement.yml`. A violation prints the rule's reason: read it before adding a baseline entry.
 - Do not disable a lint rule or a hook to get a change through. An exception is narrow (one path and one rule), carries a reason, and needs a human decision.
-- The repository is public. Never commit credentials: the bot's Telegram credential comes from the `BOT_TOKEN` environment variable, and `.env.example` holds empty placeholders only (betterleaks scans the tree and the history).
+- The repository is public. Never commit credentials: the bot's Telegram credential lives in the OS keychain and reaches the program through fnox (`fnox.toml` holds the name only), and betterleaks scans what is staged and the whole history.
 - Write commit messages and code comments in English.

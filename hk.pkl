@@ -4,8 +4,9 @@ import "package://github.com/jdx/hk/releases/download/v2.11.0/hk@2.11.0#/Builtin
 // A commit hook runs only what is fast on the staged files. Whole-project checks run on push, and
 // `check` (and so CI) runs everything. A check that exists only in a hook is not enforced.
 local fast = new Mapping<String, Step> {
+    // Scans what is staged; the committed history is scanned below and in CI.
     ["betterleaks"] {
-        check = "betterleaks dir --redact --no-banner ."
+        check = "betterleaks git --staged --redact --no-banner"
         exclusive = true
     }
     ["golangci_lint"] = Builtins.golangci_lint
