@@ -14,6 +14,10 @@ _Avoid_: Group, chat, account
 The admin who registered a Channel and acts for it in the bot.
 _Avoid_: User, client, admin (when the registered admin is meant)
 
+**Detached**:
+A Channel the bot can no longer act for, because the bot was removed from it or lost a right that Channel requires; it is neither shown as a Candidate nor offered any, and returns to normal once the bot is back.
+_Avoid_: Disabled, paused, inactive
+
 ### Matching
 
 **Candidate**:
