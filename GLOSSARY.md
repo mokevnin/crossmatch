@@ -25,7 +25,7 @@ An Owner's answer on a Candidate: interested or skip.
 _Avoid_: Vote, like, swipe
 
 **Match**:
-Two Channels whose Owners each decided "interested" on the other; it opens contact between them.
+Two Channels whose Owners each decided "interested" on the other; it lets them start an Exchange, and shows each Owner the other's contact unless that Owner chose to hide it.
 _Avoid_: Pair, connection, deal
 
 ### Exchange
