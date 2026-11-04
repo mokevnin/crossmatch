@@ -18,6 +18,10 @@ _Avoid_: User, client, admin (when the registered admin is meant)
 A Channel the bot can no longer act for, because the bot was removed from it or lost a right that Channel requires; it is neither shown as a Candidate nor offered any, and returns to normal once the bot is back.
 _Avoid_: Disabled, paused, inactive
 
+**Reach**:
+The typical number of views a post in a Channel gets, as the bot measures it from the Channel's recent posts. A Channel whose Reach is not known is neither shown as a Candidate nor offered any.
+_Avoid_: Subscribers, coverage, ERR, average reach
+
 ### Matching
 
 **Candidate**:
