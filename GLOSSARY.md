@@ -42,6 +42,14 @@ _Avoid_: Pair, connection, deal
 One agreed swap of posts within a Match: within an agreed period, each Channel publishes a post its Owner wrote about the other Channel. A Match may hold several Exchanges over time, one at a time.
 _Avoid_: Swap, deal, mutual PR (as a term for a single agreement), ВП
 
+**Exchange Post**:
+The post a Channel publishes about its partner within an Exchange, written by that Channel's Owner in their own words.
+_Avoid_: Ad, promo post, placement
+
+**Pitch**:
+A few lines an Owner writes about their own Channel for partners to draw on when writing their Exchange Post.
+_Avoid_: Brief, ad text, description (Telegram's own channel description)
+
 **Offer**:
 An Exchange one Owner has proposed and the partner has not yet accepted or declined.
 _Avoid_: Proposal, request, invitation
