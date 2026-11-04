@@ -55,9 +55,23 @@ An Exchange one Owner has proposed and the partner has not yet accepted or decli
 _Avoid_: Proposal, request, invitation
 
 **Broken**:
-An Exchange that ended through one side's fault: it did not publish within the period or did not keep its post up on the agreed terms.
+An Exchange that ended through one side's fault: it did not publish within the period, or removed its post or the bot before the post's 24 hours were up.
 _Avoid_: Failed, violated (for the Exchange as a whole)
 
 **Lapsed**:
 An Exchange whose period ended with neither side having published; no one is at fault.
 _Avoid_: Expired, failed, cancelled
+
+**Review**:
+A participant's thumbs up or thumbs down on a completed Exchange, given to the partner's Channel.
+_Avoid_: Rating, score, feedback
+
+### Trust
+
+**Violation**:
+A breach of the Exchange terms recorded against a Channel: either the bot observed it (the Channel broke an Exchange) or Complaints about the Channel came from two different partners. It stays with the Telegram channel whoever its Owner is.
+_Avoid_: Strike, penalty, complaint
+
+**Complaint**:
+A partner's report that a Channel's Exchange Post broke a specific rule the bot cannot check itself, such as not staying on top for an hour or being published silently.
+_Avoid_: Report, flag, Review
