@@ -13,3 +13,6 @@
 /.claude/skills/hk-*
 /.claude/skills/pitchfork
 /.claude/skills/.mise-skills.json
+
+# Git worktrees that Claude Code creates for isolated agent runs.
+/.claude/worktrees/
