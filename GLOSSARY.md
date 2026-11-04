@@ -46,6 +46,10 @@ _Avoid_: Swap, deal, mutual PR (as a term for a single agreement), ВП
 The post a Channel publishes about its partner within an Exchange, written by that Channel's Owner in their own words.
 _Avoid_: Ad, promo post, placement
 
+**Exchange Link**:
+An invite link the bot creates in a Channel for one Exchange, offered to the partner to put in their Exchange Post so the Channel's Owner can see how many people came through it.
+_Avoid_: Invite link (as the general term), referral link, tracking link
+
 **Pitch**:
 A few lines an Owner writes about their own Channel for partners to draw on when writing their Exchange Post.
 _Avoid_: Brief, ad text, description (Telegram's own channel description)
