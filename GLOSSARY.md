@@ -31,5 +31,17 @@ _Avoid_: Pair, connection, deal
 ### Exchange
 
 **Exchange**:
-One agreed swap of posts within a Match: each Channel publishes a post about the other on agreed terms. A Match may hold several Exchanges over time.
+One agreed swap of posts within a Match: within an agreed period, each Channel publishes a post its Owner wrote about the other Channel. A Match may hold several Exchanges over time, one at a time.
 _Avoid_: Swap, deal, mutual PR (as a term for a single agreement), ВП
+
+**Offer**:
+An Exchange one Owner has proposed and the partner has not yet accepted or declined.
+_Avoid_: Proposal, request, invitation
+
+**Broken**:
+An Exchange that ended through one side's fault: it did not publish within the period or did not keep its post up on the agreed terms.
+_Avoid_: Failed, violated (for the Exchange as a whole)
+
+**Lapsed**:
+An Exchange whose period ended with neither side having published; no one is at fault.
+_Avoid_: Expired, failed, cancelled
