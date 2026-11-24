@@ -14,5 +14,8 @@
 /.claude/skills/pitchfork
 /.claude/skills/.mise-skills.json
 
-# Git worktrees that Claude Code creates for isolated agent runs.
+# Git worktrees of this repository: `git worktree add .worktrees/<name>`, and Claude Code puts its own
+# there too (the WorktreeCreate hook, .claude/hooks/worktree.sh).
+/.worktrees/
+# Where Claude Code made them before the hook; trees made then still live there.
 /.claude/worktrees/

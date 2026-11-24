@@ -23,7 +23,7 @@ local fast = new Mapping<String, Step> {
     }
     ["lychee"] {
         glob = List("**/*.md", "lychee.toml")
-        exclude = List(".agents/**", ".claude/**")
+        exclude = List(".agents/**", ".claude/**", ".worktrees/**")
         check = "lychee --config lychee.toml --offline --no-progress {{files}}"
     }
     ["sqruff"] {
